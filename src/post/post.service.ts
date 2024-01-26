@@ -16,7 +16,11 @@ export class PostService {
   }
 
   findAll(): Promise<PostProps[]> {
-    return this.prisma.post.findMany()
+    return this.prisma.post.findMany({
+      where: {
+        title: "Resposta"
+      }
+    })
   }
 
   findPostChilds(id: string): Promise<PostProps[]> {
