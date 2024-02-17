@@ -14,6 +14,21 @@ export class PostService {
     const createdPost = await this.prisma.post.create({
       data: createPostDto,
     });
+    
+    const updatedUser = await this.prisma.user.update({
+      where: {
+        id: createPostDto.creator
+      },
+      data: {
+        qtdPosts: {
+          increment: 1
+        },
+        posts: {
+          push: createdPost.id
+        }
+      }
+    })
+
     return createdPost;
   }
 
